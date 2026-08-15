@@ -45,7 +45,7 @@ final class AlunoController
     
     public static function listar() : void
     {
-        echo "listagem de alunos";
+        //echo "listagem de alunos";
         $aluno = new Aluno();
         $lista = $aluno->getAllRows();
 

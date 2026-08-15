@@ -3,33 +3,33 @@ namespace App\Model;
 use App\DAO\AlunoDAO;
 final class Aluno
 {
-public $id, $nome, $ra, $curso;
+public $Id, $Nome, $RA, $Curso;
 
 function salvar() : Aluno
     {
         
-        return (new AlunoDAO())->save($this);
+        return new AlunoDAO()->save($this);
     }
 
-function getById(int $id) : ?Aluno
+function getById(int $Id) : ?Aluno
     {
         
-    
-        return (new AlunoDAO())->selectById($id);
+        $this->Id = $Id;
+        return new AlunoDAO()->selectById($this);
 
     }
 
-function getAllById(int $id) : array
+function getAllById(int $Id) : array
     {
-        return (new AlunoDAO())->select();
+        return new AlunoDAO()->select();
     }   
     
-function delete(int $id) : bool
+function delete(int $Id) : bool
     {
-         return (new AlunoDAO())->delete($id);
+         return new AlunoDAO()->delete($Id);
     }   
 
-public function getAllRows()
+public function getAllRows(): array
     {
         $dao = new AlunoDAO();
         return $dao->select(); // ou o método de busca equivalente no seu DAO
