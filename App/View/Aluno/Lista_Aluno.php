@@ -1,11 +1,43 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sistema Biblioteca - Lista aluno</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  </head>
+  <body>
+    <div>
+        <?php include VIEWS . "/Includes/menu.php"; ?>
+          <h1>Lista de Alunos</h1>
+         <a href="/aluno/cadastro" class="btn btn-primary">Novo Aluno</a>
+
+<table class="table">
+  <thead>
+    <tr>
+        <th scope="col"></th>
+      <th scope="col">ID</th>
+      <th scope="col">Nome</th>
+      <th scope="col">RA</th>
+      <th scope="col">Curso</th>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($lista as $aluno): ?>
+      <tr>
+        
+        <td><?= $aluno->Id ?></td>
+        <td><a href="/aluno/cadastro?id=<?= $aluno->Id ?>"><?= $aluno->Nome ?></a></td>
+        <td><?= $aluno->RA ?></td>
+        <td><?= $aluno->Curso ?></td>
+        <td><a href="/aluno/delete?id=<?= $aluno->Id ?>" onclick="return confirm('Tem certeza que deseja excluir este aluno?');">Excluir</a></td>
+      </tr>
+    <?php endforeach; ?>
+  </tbody>
+</table>
     
-</body>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+  </body>
 </html>

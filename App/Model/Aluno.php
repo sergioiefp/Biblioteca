@@ -10,23 +10,26 @@ function salvar() : Aluno
         
         return new AlunoDAO()->save($this);
     }
-
-function getById(int $Id) : ?Aluno
+public function getById(int $id) : ?Aluno
+{
+    return (new AlunoDAO())->selectById($id);
+}
+/*function getById(int $Id) : ?Aluno
     {
         
         $this->Id = $Id;
         return new AlunoDAO()->selectById($this);
 
     }
-
+*/
 function getAllById(int $Id) : array
     {
         return new AlunoDAO()->select();
     }   
     
-function delete(int $Id) : bool
+function delete(int $Id) : void
     {
-         return new AlunoDAO()->delete($Id);
+         (new AlunoDAO())->delete($Id);
     }   
 
 public function getAllRows(): array

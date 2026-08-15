@@ -41,7 +41,19 @@ public function save(Aluno $model) : Aluno
 
         return $model;
     }
-      public function selectById(Aluno $model) : ?Aluno
+    public function selectById(int $id) : ?Aluno
+{
+    $sql = "SELECT * FROM aluno WHERE Id = :id";
+    $stmt = parent::$conexao->prepare($sql);
+    $stmt->bindValue(':id', $id);
+    $stmt->execute();
+
+    // Mapeia os nomes das colunas da BD diretamente para as propriedades da classe Aluno
+    $aluno = $stmt->fetchObject("App\Model\Aluno");
+
+    return $aluno ?: null;
+}
+   /*   public function selectById(Aluno $model) : ?Aluno
     {
          $sql = "SELECT * FROM aluno WHERE Id=:id";
         $stmt = parent::$conexao->prepare($sql);
@@ -54,7 +66,7 @@ public function save(Aluno $model) : Aluno
 
         //diferente
         //return $stmt->fetchObject("App\Model\Aluno");
-    }
+    }*/
     public function select() : array
     {
          $sql = "SELECT * FROM aluno";
@@ -64,12 +76,12 @@ public function save(Aluno $model) : Aluno
         return $stmt->fetchAll(\PDO::FETCH_CLASS, "App\Model\Aluno");
         
     }
-      public function delete(int $Id) : bool
+      public function delete(int $Id) : void
     {
-        $sql = "DELETE FROM aluno WHERE id=:id";
+        $sql = "DELETE FROM aluno WHERE Id=:id";
         $stmt = parent::$conexao->prepare($sql);
         $stmt->bindValue(':id', $Id);
-        return $stmt->execute();
+        $stmt->execute();
               
     }
 }

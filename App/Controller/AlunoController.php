@@ -33,15 +33,34 @@ final class AlunoController
      */
     public static function cadastro() : void
     {
-        $model = new Aluno();
-       // $model->id = 8;
-        $model->nome = "Tiago";
-        $model->ra = 123;
-        $model->curso = "Desenvolvimento de Sistemas";
-        $model->salvar();
-        echo "aluno inserido";
+    $aluno = new Aluno();
+
+    // 1. Tratamento do GET (Carregar aluno se vier id na URL)
+    if ($_SERVER["REQUEST_METHOD"] === "GET") {
+        if (isset($_GET['id'])) {
+            // É essencial atribuir o retorno do método à variável $aluno
+            $aluno = $aluno->getById((int)$_GET['id']);
+        }
     }
 
+    // 2. Tratamento do POST (Salvar/Editar)
+    if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $aluno->Id = $_POST["id"] ?? null;
+        $aluno->Nome = $_POST["nome"];
+        $aluno->RA = $_POST["ra"];
+        $aluno->Curso = $_POST["curso"];
+
+        $aluno->salvar();
+        header("Location: /aluno");
+        exit;
+    }
+
+    // 3. Renderizar a View passando a variável $aluno preenchida
+    include 'View/Aluno/Form_Aluno.php';
+
+
+   
+    }
     
     public static function listar() : void
     {
@@ -49,6 +68,17 @@ final class AlunoController
         $aluno = new Aluno();
         $lista = $aluno->getAllRows();
 
-        var_dump($lista);
+       // var_dump($lista);
+       include VIEWS . "/../View/Aluno/Lista_Aluno.php";
     }    
+    public static function delete() : void
+    {
+        
+            $aluno = new Aluno();
+            $aluno->delete((int)$_GET['id']);
+            header("Location: /aluno");
+      
+        exit; // Interrompe a execução imediatamente após o redirecionamento
+       
+    }
 }
